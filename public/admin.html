@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard | Library Insights Hub</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      padding: 40px;
+    }
+    .admin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+    h1 {
+      margin: 0;
+      color: var(--text-strong);
+    }
+    .grid-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .card {
+      background: var(--glass);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      padding: 20px;
+      box-shadow: var(--shadow-soft);
+    }
+    .card h2 {
+      margin-top: 0;
+      font-size: 1.2rem;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 10px;
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="loginSection" class="card" style="max-width: 400px; margin: 0 auto; margin-top: 100px;">
+    <h2>Admin Login</h2>
+    <div style="margin-bottom: 15px;">
+      <label class="form-label">Email</label>
+      <input type="email" id="emailInput" class="form-input" value="admin@library.com" />
+    </div>
+    <div style="margin-bottom: 15px;">
+      <label class="form-label">Password</label>
+      <input type="password" id="passwordInput" class="form-input" value="admin123" />
+    </div>
+    <button id="loginBtn" class="btn-primary" style="width: 100%">Login</button>
+    <p id="errorMsg" style="color: #ef4444; font-size: 0.85rem; margin-top: 10px;"></p>
+  </div>
+
+  <div id="dashboardSection" style="display: none;">
+    <div class="admin-header">
+      <h1>Admin Dashboard</h1>
+      <button id="logoutBtn" class="btn-secondary">Logout</button>
+    </div>
+
+    <div style="display: flex; gap: 30px; align-items: flex-start;">
+      <!-- Main Content (Left) -->
+      <div style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
+        <div class="grid-container">
+          <div class="card">
+            <h2>Active Users</h2>
+            <div class="table-container">
+              <table id="usersTable">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2>Library Seat Bookings</h2>
+            <div class="table-container">
+              <table id="bookingsTable">
+                <thead>
+                  <tr>
+                    <th>Zone / Seat</th>
+                    <th>Time Slot</th>
+                    <th>User</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div id="libraryBranchesContainer" style="display: grid; gap: 20px;">
+          <!-- Dynamic branch cards will be injected here -->
+        </div>
+      </div>
+      
+      <!-- Settings Panel (Right) -->
+      <div id="settingsContainer" style="width: 320px; flex-shrink: 0; display: flex; flex-direction: column; gap: 20px;">
+        
+        <!-- Profile Settings -->
+        <div id="profileSettingsBox" class="card">
+          <h2>Profile Settings</h2>
+          <div style="display: flex; flex-direction: column; gap: 15px; align-items: center; margin-top: 15px;">
+            <div style="width: 80px; height: 80px; border-radius: 50%; background: var(--glass); display: flex; align-items: center; justify-content: center; font-size: 2rem; color: var(--text-main); border: 2px solid var(--border-subtle);">
+              <span id="profileAvatar">A</span>
+            </div>
+            <div style="width: 100%; text-align: center;">
+              <div id="profileViewMode">
+                <h3 id="profileNameDisplay" style="margin: 0; font-size: 1.2rem; color: var(--text-strong);">Admin Name</h3>
+                <p id="profileEmailDisplay" style="margin: 5px 0 15px 0; color: var(--text-soft); font-size: 0.9rem;">admin@library.com</p>
+                <button id="editProfileBtn" class="btn-secondary" style="width: 100%; padding: 8px 12px; font-size: 0.9rem;">Edit Profile</button>
+              </div>
+              
+              <div id="profileEditMode" style="display: none; text-align: left;">
+                <input type="text" id="profileNameInput" class="form-input" style="margin-bottom: 10px;" placeholder="Full Name" />
+                <input type="email" id="profileEmailInput" class="form-input" style="margin-bottom: 15px;" placeholder="Email Address" />
+                <div style="display: flex; gap: 10px;">
+                  <button id="saveProfileBtn" class="btn-primary" style="flex: 1; padding: 6px 12px; font-size: 0.85rem;">Save</button>
+                  <button id="cancelProfileBtn" class="btn-secondary" style="flex: 1; padding: 6px 12px; font-size: 0.85rem;">Cancel</button>
+                </div>
+                <p id="profileMsg" style="margin-top: 10px; font-size: 0.85rem; text-align: center;"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Library Configuration -->
+        <div id="libraryConfigBox" class="card">
+          <h2>Library Settings</h2>
+          <div style="display: flex; flex-direction: column; gap: 20px; margin-top: 15px;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <label>Branch selector</label>
+              <select id="settingBranchSelector" class="form-input" style="width: auto; padding: 5px;">
+                <option value="All Branches">All Branches</option>
+                <option value="Main Library">Main Library</option>
+                <option value="Science Dept">Science Dept</option>
+                <option value="Arts Dept">Arts Dept</option>
+                <option value="Law Library">Law Library</option>
+              </select>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <label>Max books per student</label>
+              <input type="number" id="settingMaxBooks" min="1" max="10" style="width: 60px; padding: 5px; text-align: center;" />
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <label>Seat booking limit (min)</label>
+              <input type="number" id="settingSeatLimit" min="30" max="360" step="30" style="width: 60px; padding: 5px; text-align: center;" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Notification Settings -->
+        <div id="notificationSettingsBox" class="card">
+          <h2>Notification Settings</h2>
+          <div style="display: flex; flex-direction: column; gap: 20px; margin-top: 15px;">
+            <label class="toggle" style="display: flex; justify-content: space-between; align-items: center;">
+              <span>Email alerts</span>
+              <div style="position: relative;">
+                <input type="checkbox" id="settingEmailAlerts" />
+                <span class="slider" style="position: absolute; right: 0; top: 50%; transform: translateY(-50%);"></span>
+              </div>
+            </label>
+            <label class="toggle" style="display: flex; justify-content: space-between; align-items: center;">
+              <span>Due date reminders</span>
+              <div style="position: relative;">
+                <input type="checkbox" id="settingDueDateReminders" />
+                <span class="slider" style="position: absolute; right: 0; top: 50%; transform: translateY(-50%);"></span>
+              </div>
+            </label>
+            <label class="toggle" style="display: flex; justify-content: space-between; align-items: center;">
+              <span>New book alerts</span>
+              <div style="position: relative;">
+                <input type="checkbox" id="settingNewBookAlerts" />
+                <span class="slider" style="position: absolute; right: 0; top: 50%; transform: translateY(-50%);"></span>
+              </div>
+            </label>
+          </div>
+          <div style="margin-top: 25px;">
+            <button id="saveSettingsBtn" class="btn-primary" style="width: 100%; padding: 8px 12px; font-size: 0.9rem;">Save Settings</button>
+            <p id="settingsMsg" style="margin-top: 10px; font-size: 0.9rem; text-align: center;"></p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Library Insights Hub</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <div class="app-container">
+      <aside class="sidebar-nav">
+        <div class="sidebar-header">
+          <div class="sidebar-logo">L</div>
+          <div class="sidebar-brand">
+            <h2>Library Hub</h2>
+          </div>
+        </div>
+        <ul class="nav-links">
+          <li>
+            <a href="index.html" class="nav-item">
+              <span style="margin-right:8px;">📊</span> Dashboard
+            </a>
+          </li>
+          <li>
+            <a href="book-issue.html" class="nav-item active">
+              <span style="margin-right:8px;">📚</span> Books
+            </a>
+          </li>
+          <li>
+            <a href="seat-booking.html" class="nav-item">
+              <span style="margin-right:8px;">🪑</span> Seats
+            </a>
+          </li>
+          <li>
+            <a href="admin.html" class="nav-item">
+              <span style="margin-right:8px;">⚙️</span> Admin
+            </a>
+          </li>
+        </ul>
+      </aside>
+      <main class="main-content">
+        <div class="page">
+          <header class="top-bar">
+        <div class="top-bar-left">
+          <div class="logo-circle">L</div>
+          <div class="brand">
+            <h1><a href="index.html" style="text-decoration: none; color: inherit;">Library Insights Hub</a></h1>
+            <p>Book Search & Reservations</p>
+          </div>
+        </div>
+        <div class="top-bar-right">
+          <div class="auth-controls">
+            <div id="authUserInfo" class="auth-user-info auth-user-info--hidden">
+              <span id="authUserName"></span>
+            </div>
+            <button id="authOpenButton" class="btn-ghost-small">Login / Signup</button>
+          </div>
+          <label class="toggle">
+            <span>Auto-refresh</span>
+            <input type="checkbox" id="autoRefreshToggle" checked />
+            <span class="slider"></span>
+          </label>
+        </div>
+      </header>
+
+      <main style="padding: 24px; max-width: 800px; margin: 0 auto;">
+        <section class="panel">
+          <div class="panel-header">
+            <h2>Book Search & Issue</h2>
+            <p class="panel-subtitle">Find and reserve books available in the library.</p>
+          </div>
+          <div style="margin-top: 20px;">
+            <div class="form-row" style="display: flex; gap: 12px; margin-bottom: 24px;">
+              <input
+                id="bookSearchInput"
+                type="search"
+                placeholder="Search by title or author"
+                style="flex: 1; padding: 12px; font-size: 1rem; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-main);"
+              />
+              <button id="bookSearchButton" class="btn-primary" style="padding: 0 24px; white-space: nowrap;">
+                🔍 Search Books
+              </button>
+            </div>
+            <div id="bookResults" style="display: flex; flex-direction: column; gap: 32px; margin-top: 10px;"></div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <span>
+          Designed for students to quickly check library crowding before they
+          travel.
+        </span>
+        <span class="hint">
+          Tip: toggle <strong>Auto-refresh</strong> for live updates every 10
+          seconds.
+        </span>
+      </footer>
+    </div>
+
+    <div id="authDialogBackdrop" class="auth-backdrop auth-backdrop--hidden">
+      <div class="auth-dialog">
+        <div class="auth-dialog-header">
+          <h2>Access Library Hub</h2>
+          <button id="authCloseButton" class="btn-icon" aria-label="Close">
+            ✕
+          </button>
+        </div>
+        <p class="auth-dialog-sub">
+          Create a simple account to book seats and reserve books.
+        </p>
+        <div class="auth-tabs">
+          <button
+            id="authTabLogin"
+            class="auth-tab auth-tab--active"
+            type="button"
+          >
+            Login
+          </button>
+          <button id="authTabSignup" class="auth-tab" type="button">
+            Signup
+          </button>
+        </div>
+        <form id="authForm" class="auth-form">
+          <div id="authNameRow" class="form-row form-row--hidden">
+            <input
+              id="authNameInput"
+              type="text"
+              autocomplete="name"
+              placeholder="Full name"
+            />
+          </div>
+          <div class="form-row">
+            <input
+              id="authEmailInput"
+              type="email"
+              autocomplete="email"
+              placeholder="Email"
+            />
+          </div>
+          <div class="form-row">
+            <input
+              id="authPasswordInput"
+              type="password"
+              autocomplete="current-password"
+              placeholder="Password"
+            />
+          </div>
+          <button id="authSubmitButton" class="btn-primary" type="submit">
+            Continue
+          </button>
+          <p id="authFeedback" class="sidebar-feedback"></p>
+        </form>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
