@@ -21,7 +21,8 @@ async function checkSession() {
   }
 }
 
-loginBtn.addEventListener('click', async () => {
+loginSection.addEventListener('submit', async (e) => {
+  e.preventDefault();
   errorMsg.textContent = '';
   loginBtn.disabled = true;
   loginBtn.textContent = 'Logging in...';

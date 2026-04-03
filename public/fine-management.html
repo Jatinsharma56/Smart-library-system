@@ -42,7 +42,7 @@
                     </div>
                 </header>
                 
-                <div id="loginSection" class="card" style="max-width: 400px; margin: 40px auto; text-align: center;">
+                <form id="loginSection" class="card" style="max-width: 400px; margin: 40px auto; text-align: center;">
                     <h2>Admin Access Required</h2>
                     <p style="margin-bottom: 20px; color: var(--text-soft);">You must log in to view and manage fines.</p>
                     <div style="margin-bottom: 15px;">
@@ -51,9 +51,9 @@
                     <div style="margin-bottom: 15px;">
                         <input type="password" id="passwordInput" class="form-input" value="admin123" />
                     </div>
-                    <button id="loginBtn" class="btn-primary" style="width: 100%;">Login to Fines Dashboard</button>
+                    <button type="submit" id="loginBtn" class="btn-primary" style="width: 100%;">Login to Fines Dashboard</button>
                     <p id="errorMsg" style="color: #ef4444; font-size: 0.85rem; margin-top: 10px;"></p>
-                </div>
+                </form>
 
                 <div id="finesDashboardSection" style="display: none; padding: 20px;">
                     <div class="admin-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
