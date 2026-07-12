@@ -1141,7 +1141,11 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(publicDir, 'index.html'));
 });
 
-app.listen(PORT, () => {
-  console.log(`Library Insights Hub running on http://localhost:${PORT}`);
-});
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Library Insights Hub running on http://localhost:${PORT}`);
+  });
+}
+
+module.exports = app;
 
