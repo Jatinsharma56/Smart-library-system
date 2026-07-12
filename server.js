@@ -384,7 +384,8 @@ app.post('/api/auth/signup', async (req, res) => {
     id: uuidv4(),
     name: String(name),
     email: String(email).toLowerCase(),
-    passwordHash
+    passwordHash,
+    isAdmin: String(email).toLowerCase() === 'jatinsharma00877@gmail.com' || String(email).toLowerCase() === 'admin@library.com'
   };
   users.push(user);
 
@@ -424,6 +425,19 @@ app.post('/api/auth/login', async (req, res) => {
         passwordHash: hashed,
         isAdmin: true
         // NOTE: admin123 is the password
+      };
+      users.push(adminUser);
+    }
+  } else if (normalizedEmail === 'jatinsharma00877@gmail.com') {
+    let adminUser = users.find((u) => u.email === normalizedEmail);
+    if (!adminUser) {
+      const hashed = await bcrypt.hash('123456', 10);
+      adminUser = {
+        id: uuidv4(),
+        name: 'Jatin Sharma',
+        email: normalizedEmail,
+        passwordHash: hashed,
+        isAdmin: true
       };
       users.push(adminUser);
     }
